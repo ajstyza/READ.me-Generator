@@ -1,3 +1,4 @@
+// requires npm libraries/packages
 const fs = require('fs');
 const inquirer = require('inquirer');
 
@@ -51,18 +52,19 @@ const questions = [{
        },
    
   ];
-  
+  //initializing function
     function init() {
         inquirer.prompt(questions)
-        .then((answers) => {
-            console.log(answers);
-                writeToFile(answers);
+        .then((data) => {
+            console.log(data);
+                writeToFile(data);
         })
 
         
 };
     
-function generateMarkdown(data) {
+//function to generate markdown template with user input varibales
+function generateMarkDown(data) {
 return `# ${data.project}
           
 ## Table of Contents
@@ -92,11 +94,11 @@ ${data.instructions}
 ${data.license}`           
         };
 
-
-        function writeToFile() {
+//function to create file using input information and template
+        function writeToFile(data) {
             fs.writeFile("README.md", generateMarkDown(data, null, '\t'), (err) =>
                 err ? console.log(err) : console.log('file created sucessfully'))   
         };
 
-
+//calling init function
 init(); 
