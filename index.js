@@ -54,51 +54,49 @@ const questions = [{
   
     function init() {
         inquirer.prompt(questions)
+        .then((answers) => {
+            console.log(answers);
+                writeToFile(answers);
+        })
+
         
 };
-   
-    
     
 function generateMarkdown(data) {
-        return `# ${data.project}
+return `# ${data.project}
           
-            ## Table of Contents
-            * [Description](#Description)
-            * [Installation](#install)
-            * [Usage](#Purpose)
-            * [Contributing](#Contributors)
-            * [Tests](#Instructions)
-            * * [Licenses](#License)
+## Table of Contents
+* [Description](#Description)
+* [Installation](#install)
+* [Usage](#Purpose)
+* [Contributing](#Contributors)
+* [Tests](#Instructions)
+* * [Licenses](#License)
+    
+## Description
+${data.description}
+      
+## Installation
+${data.install}
+      
+## Purpose
+${data.purpose}
+      
+## Contributors
+${data.contributors}
+      
+## Instructions
+${data.instructions}
         
-            ## Description
-            ${data.description}
-          
-            ## Installation
-            ${data.install}
-          
-            ## Purpose
-            ${data.purpose}
-          
-            ## Contributors
-            ${data.contributors}
-          
-            ## Instructions
-            ${data.instructions}
-            
-            ## License
-            ${data.license}`
+## License
+${data.license}`           
         };
 
+
         function writeToFile() {
-            fs.writeFile(`./${data.project.split('').join('')}.md`, JSON.stringify(data, null, '\t'), (err) =>
+            fs.writeFile("README.md", generateMarkDown(data, null, '\t'), (err) =>
                 err ? console.log(err) : console.log('file created sucessfully'))   
         };
 
 
 init(); 
-writeToFile();   
-generateMarkdown();
-
-
-    
-   
